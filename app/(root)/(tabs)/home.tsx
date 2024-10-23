@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView,Image,ImageProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
@@ -38,63 +38,69 @@ const Home = () => {
                     </Text>
                 </View>
 
+                <View style={{ padding: 10 }}>
+            {/* First Row: Take Survey & Reminders */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 {/* Take Survey Card */}
                 <TouchableOpacity
                     onPress={handleSurveyRedirect}
-                    className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6"
+                    style={{ flex: 1, backgroundColor: '#1F2937', padding: 16, borderRadius: 10, marginRight: 10, alignItems: 'center' }}
                 >
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Take Survey
-                    </Text>
-                    <Text className="text-gray-400">
-                        Answer some questions to assess your mental health and receive personalized advice.
-                    </Text>
+                    <Image
+                        source={{ uri: 'https://www.example.com/survey-icon.png' }} // Replace with your image URL
+                        style={{ width: 100, height: 100, marginBottom: 10, backgroundColor: 'black' }}
+                    />
+                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Take Survey</Text>
                 </TouchableOpacity>
 
                 {/* Reminder Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Today's Reminders
-                    </Text>
-                    <Text className="text-gray-400">
-                        • Practice mindfulness for 10 minutes.{"\n"}
-                        • Meditate before bed.{"\n"}
-                        • Drink 8 glasses of water.
-                    </Text>
+                <View style={{ flex: 1, backgroundColor: '#1F2937', padding: 16, borderRadius: 10, alignItems: 'center' }}>
+                    <Image
+                        source={{ uri: 'https://www.example.com/reminder-icon.png' }} // Replace with your image URL
+                        style={{ width: 100, height: 100, marginBottom: 10, backgroundColor: 'black' }}
+                    />
+                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Today's Reminders</Text>
                 </View>
+            </View>
 
+            {/* Second Row: Mindfulness Tips & Daily Check-In */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 {/* Mindfulness Tips Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Mindfulness Tips
-                    </Text>
-                    <Text className="text-gray-400">
-                        Explore mindfulness practices to improve your mental well-being.
-                    </Text>
+                <View style={{ flex: 1, backgroundColor: '#1F2937', padding: 16, borderRadius: 10, marginRight: 10, alignItems: 'center' }}>
+                    <Image
+                        source={{ uri: 'https://www.example.com/mindfulness-icon.png' }} // Replace with your image URL
+                        style={{ width: 100, height: 100, marginBottom: 10, backgroundColor: 'black' }}
+                    />
+                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Mindfulness Tips</Text>
                 </View>
 
                 {/* Daily Check-In Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Daily Check-In
-                    </Text>
-                    <Text className="text-gray-400">
-                        Track your mood and thoughts daily for better self-awareness.
-                    </Text>
+                <View style={{ flex: 1, backgroundColor: '#1F2937', padding: 16, borderRadius: 10, alignItems: 'center' }}>
+                    <Image
+                        source={{ uri: 'https://www.example.com/checkin-icon.png' }} // Replace with your image URL
+                        style={{ width: 100, height: 100, marginBottom: 10, backgroundColor: 'black' }}
+                    />
+                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Daily Check-In</Text>
                 </View>
+            </View>
 
+            {/* Third Row: Customized Recommendations */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 {/* Customized Recommendations Card */}
                 <TouchableOpacity
                     onPress={handleRecommendationsRedirect}
-                    className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6"
+                    style={{ flex: 1, backgroundColor: '#1F2937', padding: 16, borderRadius: 10, alignItems: 'center' }}
                 >
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Customized Recommendations
-                    </Text>
-                    <Text className="text-gray-400">
-                        Get personalized lifestyle habits and mental health advice tailored to you.
-                    </Text>
+                    <Image
+                        source={{ uri: 'https://www.example.com/recommendations-icon.png' }} // Replace with your image URL
+                        style={{ width: 100, height: 100, marginBottom: 10, backgroundColor: 'black' }}
+                    />
+                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Customized Recommendations</Text>
                 </TouchableOpacity>
+            </View>
+        </View>
+                   
+               
             </ScrollView>
         </SafeAreaView>
     );
