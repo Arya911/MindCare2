@@ -1,106 +1,86 @@
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {useContext} from "react";
-import {UserContext} from "@/app/UserContext"; // Import FontAwesome icons
+import { FontAwesome5, Ionicons } from '@expo/vector-icons'; // Import additional icons
+import { useFonts } from 'expo-font';
 
 const Home = () => {
     const router = useRouter();
-    const { user, updateUser } = useContext(UserContext);
 
-    console.log("After updateUser: ", user);
     const handleSurveyRedirect = () => {
-        router.push("/(tabs)/survey"); // Redirects to the survey page in the tabs
+        router.push("/(tabs)/survey");
     };
 
     const handleProfileRedirect = () => {
-        router.push("/(tabs)/profile"); // Redirects to the profile page
+        router.push("/(tabs)/profile");
     };
 
     const handleRecommendationsRedirect = () => {
-        router.push("/(tabs)/recommendations"); // Redirects to the recommendations page
+        router.push("/(tabs)/recommendations");
     };
+
+    // const [fontsLoaded] = useFonts({
+    //     'FontAwesome5': FontAwesome5.font, // Load FontAwesome5 fonts
+    //     // Add any other icon fonts you are using, e.g., MaterialIcons, Feather, etc.
+    // });
+    //
+    // if (!fontsLoaded) {
+    //     return <AppLoading />; // Display a loading screen until fonts are loaded
+    // }
 
     return (
         <SafeAreaView className="flex h-full bg-black p-5">
             <ScrollView>
                 {/* Header with Profile Icon */}
                 <View className="flex flex-row justify-between items-center mb-6">
-                    <Text className="text-white text-2xl font-extrabold tracking-wide">
-                        Welcome to MindCare
+                    <Text className="text-white text-center text-2xl font-extrabold tracking-wide">
+                       MindCare
                     </Text>
                     <TouchableOpacity onPress={handleProfileRedirect}>
-                        <Icon name="user" size={30} color="white" />
+                        <FontAwesome5 name="user-circle" size={30} color="white" />
                     </TouchableOpacity>
                 </View>
 
-                {/* Welcome Section */}
-                <View className="mb-6">
-                    <Text className="text-gray-400 text-md mt-1">
-                        Your mental health is important to us!
-                    </Text>
+                <View className="space-y-4">
+                    {/* First Row: Personalized Suggestions & Survey */}
+                    <View className="flex flex-row justify-between">
+                        {/* Personalized Suggestions Card */}
+                        <TouchableOpacity
+                            onPress={handleRecommendationsRedirect}
+                            className="flex-1 bg-purple-200 p-5 rounded-lg mr-2 items-center"
+                        >
+                            <FontAwesome5 name="compass" size={70} color="black" className="mb-2" />
+                            <Text className="mt-4 text-black text-sm text-center">Custom Tips</Text>
+                        </TouchableOpacity>
+
+                        {/* Take Survey Card */}
+                        <TouchableOpacity
+                            onPress={handleSurveyRedirect}
+                            className="flex-1 bg-purple-200 p-5 rounded-lg items-center"
+                        >
+                            <FontAwesome5 name="clipboard-list" size={70} color="black" className="mb-2" />
+                            <Text className="mt-4 text-black text-sm text-center">Survey</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Second Row: Positive Affirmations & Find Professionals */}
+                    <View className="flex flex-row justify-between">
+                        {/* Positive Affirmations Section */}
+                        <View className="flex-1 bg-purple-200 p-5 rounded-lg mr-2 items-center">
+                            <Ionicons name="sparkles" size={70} color="black" className="mb-2" />
+                            <Text className="mt-4 text-black text-sm text-center">Affirmations</Text>
+                        </View>
+
+                        {/* Find Professionals Section */}
+                        <View className="flex-1 bg-purple-200 p-5 rounded-lg items-center">
+                            <FontAwesome5 name="user-md" size={70} color="black" className="mb-2" />
+                            <Text className="mt-4 text-black text-sm text-center">Find Professionals</Text>
+                        </View>
+                    </View>
                 </View>
-
-                {/* Take Survey Card */}
-                <TouchableOpacity
-                    onPress={handleSurveyRedirect}
-                    className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6"
-                >
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Take Survey
-                    </Text>
-                    <Text className="text-gray-400">
-                        Answer some questions to assess your mental health and receive personalized advice.
-                    </Text>
-                </TouchableOpacity>
-
-                {/* Reminder Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Today's Reminders
-                    </Text>
-                    <Text className="text-gray-400">
-                        • Practice mindfulness for 10 minutes.{"\n"}
-                        • Meditate before bed.{"\n"}
-                        • Drink 8 glasses of water.
-                    </Text>
-                </View>
-
-                {/* Mindfulness Tips Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Mindfulness Tips
-                    </Text>
-                    <Text className="text-gray-400">
-                        Explore mindfulness practices to improve your mental well-being.
-                    </Text>
-                </View>
-
-                {/* Daily Check-In Section */}
-                <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Daily Check-In
-                    </Text>
-                    <Text className="text-gray-400">
-                        Track your mood and thoughts daily for better self-awareness.
-                    </Text>
-                </View>
-
-                {/* Customized Recommendations Card */}
-                <TouchableOpacity
-                    onPress={handleRecommendationsRedirect}
-                    className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6"
-                >
-                    <Text className="text-white text-xl font-bold mb-2">
-                        Customized Recommendations
-                    </Text>
-                    <Text className="text-gray-400">
-                        Get personalized lifestyle habits and mental health advice tailored to you.
-                    </Text>
-                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
+
     );
 };
 

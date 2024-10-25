@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { SafeAreaView, View, Image, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {UserContext} from "@/app/UserContext";
 import {postProfileUpdates} from "@/services/profileService"; // Feather icons include pencil and check icons
 
@@ -32,6 +33,10 @@ const ProfileScreen = () => {
         setIsEditing(!isEditing); // Toggle edit mode
     };
 
+    const handleCancelEdit = () => {
+        setUserDetails(user);
+        setIsEditing(false);
+    }
     // Function to handle changes to user details
     const handleInputChange = (field, value) => {
         setUserDetails(prevState => ({ ...prevState, [field]: value }));
@@ -40,8 +45,21 @@ const ProfileScreen = () => {
     return (
         <SafeAreaView className="flex h-full bg-black p-5">
             {/* Top-right icon button */}
+            {isEditing && (
+                <TouchableOpacity
+                    className="absolute top-5 right-20 bg-gray-600 p-3 rounded-lg shadow-md shadow-gray-700"
+                    onPress={handleCancelEdit} // Function to cancel editing
+                >
+                    <Feather
+                        name="x" // 'X' icon for cancel
+                        size={24}
+                        color="white"
+                    />
+                </TouchableOpacity>
+            )}
+
             <TouchableOpacity
-                className="absolute top-5 right-5 bg-purple-600 p-3 rounded-lg shadow-md shadow-purple-700"
+                className="absolute top-5 right-5 bg-purple-300 p-3 rounded-lg shadow-md shadow-purple-500"
                 onPress={handleEditProfileToggle}
             >
                 <Feather
@@ -91,72 +109,98 @@ const ProfileScreen = () => {
             </View>
 
             {/* Profile Details Section */}
-            <View className="bg-gray-800 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
-                <Text className="text-white text-xl font-bold mb-2">
-                    Profile Details
-                </Text>
+            <View className="bg-purple-200 p-6 rounded-lg shadow-md shadow-purple-700 mb-6">
 
-                {isEditing ? (
-                    // Editable name
-                    <TextInput
-                        className="text-gray-400 mb-2"
-                        value={userDetails.name}
-                        onChangeText={(text) => handleInputChange('name', text)}
-                        style={{ color: 'gray' }}
-                    />
-                ) : (
-                    // View-only name
-                    <Text className="text-gray-400 mb-2">
-                        Name: {userDetails.name}
-                    </Text>
-                )}
+                    {/* Name Field */}
+                    <View className="flex-row items-center w-4/5">
+                        <Feather name="user" size={20} color="black" />
+                        <View className="flex-1 mx-3">
+                            <Text className="text-black text-base">Name</Text>
+                            {isEditing ? (
+                                <TextInput
+                                    className="text-black text-lg font-bold"
+                                    value={userDetails.name}
+                                    onChangeText={(text) => handleInputChange('name', text)}
+                                />
+                            ) : (
+                                <Text className="text-black text-lg font-bold">
+                                    {userDetails.name}
+                                </Text>
+                            )}
+                        </View>
+                    </View>
 
-                {isEditing ? (
-                    // Editable blood group
-                    <TextInput
-                        className="text-gray-400 mb-2"
-                        value={userDetails.gender}
-                        onChangeText={(text) => handleInputChange('gender', text)}
-                        style={{ color: 'gray' }}
-                    />
-                ) : (
-                    // View-only blood group
-                    <Text className="text-gray-400 mb-2">
-                       Gender : {userDetails.gender}
-                    </Text>
-                )}
+                    {/* Separator */}
+                    <View className="h-0.5 bg-gray-600 w-11/12 mb-4" />
 
-                {isEditing ? (
-                    // Editable blood group
-                    <TextInput
-                        className="text-gray-400 mb-2"
-                        value={userDetails.bloodgroup}
-                        onChangeText={(text) => handleInputChange('bloodgroup', text)}
-                        style={{ color: 'gray' }}
-                    />
-                ) : (
-                    // View-only blood group
-                    <Text className="text-gray-400 mb-2">
-                        Blood group: {userDetails.bloodgroup}
-                    </Text>
-                )}
+                    {/* Gender Field */}
+                    <View className="flex-row items-center w-4/5">
+                        <MaterialCommunityIcons name="gender-male-female" size={20} color="black" />
+                        <View className="flex-1 mx-3">
+                            <Text className="text-black text-base">Gender</Text>
+                            {isEditing ? (
+                                <TextInput
+                                    className="text-black text-lg font-bold"
+                                    value={userDetails.gender}
+                                    onChangeText={(text) => handleInputChange('gender', text)}
+                                />
+                            ) : (
+                                <Text className="text-black text-lg font-bold">
+                                    {userDetails.gender}
+                                </Text>
+                            )}
+                        </View>
+                    </View>
 
-                {isEditing ? (
-                    // Editable blood group
-                    <TextInput
-                        className="text-gray-400 mb-2"
-                        value={userDetails.birthdate}
-                        onChangeText={(text) => handleInputChange('birthdate', text)}
-                        style={{ color: 'gray' }}
-                    />
-                ) : (
-                    // View-only blood group
-                    <Text className="text-gray-400 mb-2">
-                        Birthdate : {userDetails.birthdate}
-                    </Text>
-                )}
+                    {/* Separator */}
+                    <View className="h-0.5 bg-gray-600 w-11/12 mb-4" />
+
+                    {/* Blood Group Field */}
+                    <View className="flex-row items-center w-4/5">
+                        <Feather name="droplet" size={20} color="black" />
+                        <View className="flex-1 mx-3">
+                            <Text className="text-black text-base">Blood Group</Text>
+                            {isEditing ? (
+                                <TextInput
+                                    className="text-black text-lg font-bold"
+                                    value={userDetails.bloodgroup}
+                                    onChangeText={(text) => handleInputChange('bloodGroup', text)}
+                                />
+                            ) : (
+                                <Text className="text-black text-lg font-bold">
+                                    {userDetails.bloodgroup}
+                                </Text>
+                            )}
+                        </View>
+                    </View>
+
+                    {/* Separator */}
+                    <View className="h-0.5 bg-gray-600 w-11/12 mb-4" />
+
+                    {/* Birthdate Field */}
+                    <View className="flex-row items-center w-4/5">
+                        <Feather name="calendar" size={20} color="black" />
+                        <View className="flex-1 mx-3">
+                            <Text className="text-black text-base">Birthdate</Text>
+                            {isEditing ? (
+                                <TextInput
+                                    className="text-black text-lg font-bold"
+                                    value={userDetails.birthdate}
+                                    onChangeText={(text) => handleInputChange('birthdate', text)}
+                                />
+                            ) : (
+                                <Text className="text-black text-lg font-bold">
+                                    {userDetails.birthdate}
+                                </Text>
+                            )}
+                        </View>
+                    </View>
+
+                    {/* Separator */}
+                    <View className="h-0.5 bg-gray-600 w-11/12 mb-4" />
 
             </View>
+        {/*</View>*/}
         </SafeAreaView>
     );
 };
