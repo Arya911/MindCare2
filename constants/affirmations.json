@@ -1,0 +1,50 @@
+[
+	{
+		"id": 1,
+		"text": "I am worthy of love and respect.",
+		"category": "self_esteem",
+		"keywords": ["love", "respect", "worth"]
+	},
+	{
+		"id": 2,
+		"text": "I believe in my abilities and embrace my unique strengths.",
+		"category": "self_esteem",
+		"keywords": ["belief", "strengths", "abilities"]
+	},
+	{
+		"id": 3,
+		"text": "Every challenge I face helps me grow and become stronger.",
+		"category": "motivation",
+		"keywords": ["challenge", "growth", "strength"]
+	},
+	{
+		"id": 4,
+		"text": "I have the power to create positive changes in my life.",
+		"category": "motivation",
+		"keywords": ["power", "positive change", "life"]
+	},
+	{
+		"id": 5,
+		"text": "I trust the universe to guide me towards my true purpose.",
+		"category": "spiritual",
+		"keywords": ["trust", "universe", "purpose"]
+	},
+	{
+		"id": 6,
+		"text": "I am a spiritual being having a human experience.",
+		"category": "spiritual",
+		"keywords": ["spiritual", "human experience", "being"]
+	},
+	{
+		"id": 7,
+		"text": "I attract healthy, loving relationships into my life.",
+		"category": "relationships",
+		"keywords": ["healthy", "relationships", "love"]
+	},
+	{
+		"id": 8,
+		"text": "I communicate openly and clearly with the people I care about.",
+		"category": "relationships",
+		"keywords": ["communication", "openness", "care"]
+	}
+]

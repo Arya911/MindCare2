@@ -4,7 +4,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
+import {ApplicationProvider, IconRegistry} from "@ui-kitten/components";
+import * as eva from '@eva-design/eva';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import {customTheme} from "@/constants/customTheme";
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -34,12 +37,17 @@ export default function RootLayout() {
 
   return (
     <UserProvider>
+      <IconRegistry icons={EvaIconsPack} />
+      {/* Wrap the app in ApplicationProvider for UI Kitten theming */}
+      <ApplicationProvider {...eva} theme={eva.dark}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      </ApplicationProvider>
     </UserProvider>
   );
 }

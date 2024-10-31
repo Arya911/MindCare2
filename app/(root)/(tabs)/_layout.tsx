@@ -8,6 +8,7 @@ const LayoutTabs = () => {
       <Stack.Screen name="home" options={{ headerShown: false }} />
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="survey" options={{ headerShown: false }} />
+        <Stack.Screen name="affirmations" options={{ headerShown: false }} />
     </Stack>
       // </UserProvider>
   );

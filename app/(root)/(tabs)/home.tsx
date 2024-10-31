@@ -19,6 +19,10 @@ const Home = () => {
         router.push("/(tabs)/recommendations");
     };
 
+    const handleAffirmationsRedirect = () => {
+        router.push("/(tabs)/affirmations");
+    };
+
     // const [fontsLoaded] = useFonts({
     //     'FontAwesome5': FontAwesome5.font, // Load FontAwesome5 fonts
     //     // Add any other icon fonts you are using, e.g., MaterialIcons, Feather, etc.
@@ -66,10 +70,13 @@ const Home = () => {
                     {/* Second Row: Positive Affirmations & Find Professionals */}
                     <View className="flex flex-row justify-between">
                         {/* Positive Affirmations Section */}
-                        <View className="flex-1 bg-purple-200 p-5 rounded-lg mr-2 items-center">
+                        <TouchableOpacity
+                            onPress={handleAffirmationsRedirect}
+                            className="flex-1 bg-purple-200 p-5 rounded-lg mr-2 items-center"
+                        >
                             <Ionicons name="sparkles" size={70} color="black" className="mb-2" />
                             <Text className="mt-4 text-black text-sm text-center">Affirmations</Text>
-                        </View>
+                        </TouchableOpacity>
 
                         {/* Find Professionals Section */}
                         <View className="flex-1 bg-purple-200 p-5 rounded-lg items-center">
