@@ -11,9 +11,12 @@ const Home = () => {
         router.push("/(tabs)/survey");
     };
 
-    const handleProfileRedirect = () => {
-        router.push("/(tabs)/profile");
-    };
+      const handleSettingsRedirect = () => {
+            router.push("/(tabs)/settings");
+        };
+
+
+
 
     const handleRecommendationsRedirect = () => {
         router.push("/(tabs)/recommendations");
@@ -40,8 +43,8 @@ const Home = () => {
                     <Text className="text-white text-center text-2xl font-extrabold tracking-wide">
                        MindCare
                     </Text>
-                    <TouchableOpacity onPress={handleProfileRedirect}>
-                        <FontAwesome5 name="user-circle" size={30} color="white" />
+                    <TouchableOpacity onPress={handleSettingsRedirect}>
+                        <FontAwesome5 name="cog" size={30} color="white" />
                     </TouchableOpacity>
                 </View>
 

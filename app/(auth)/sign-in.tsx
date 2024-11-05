@@ -15,23 +15,24 @@ const SignIn = () => {
     const handleSignIn = async () => {
 
         console.log("Sign in button pressed");
-        try{
-            const response = await postSignInDetailsTemp({username, password});
-            if(response.success){
-                console.log("Response.user: ", response.user);
-                updateUser(response.user);
-                console.log("After updateUser: ", user);
-                router.replace("/(tabs)/home"); // Redirect to home page after successful sign-in
-            }
-            else {
-                setErr(`${response.message}`);
-                console.error(err);
-            }
-        }
-        catch (err){
-            console.error("Sign in failed", err);
-            setErr("Sign in failed due to unknown error.");
-        }
+         router.replace("/(tabs)/home")
+//         try{
+//             const response = await postSignInDetailsTemp({username, password});
+//             if(response.success){
+//                 console.log("Response.user: ", response.user);
+//                 updateUser(response.user);
+//                 console.log("After updateUser: ", user);
+//                 router.replace("/(tabs)/home"); // Redirect to home page after successful sign-in
+//             }
+//             else {
+//                 setErr(`${response.message}`);
+//                 console.error(err);
+//             }
+//         }
+//         catch (err){
+//             console.error("Sign in failed", err);
+//             setErr("Sign in failed due to unknown error.");
+//         }
 
     };
 
