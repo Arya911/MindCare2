@@ -6,10 +6,12 @@ import SearchBar from "@/app/components/affirmations/searchBar";
 import CategoryBlocks from "@/app/components/affirmations/categories";
 import SelectedCategory from "@/app/components/affirmations/selectedCategory";
 import DropdownWithCategories from "@/app/components/affirmations/catDropdown";
+import MyLibrary from "@/app/components/affirmations/library";
 
 const AffirmationSearchPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [view, setView] = useState<'search' | 'library'>('search');
 
     // const filteredAffirmations = affirmations.filter(item =>
     //     item.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,36 +47,47 @@ const AffirmationSearchPage = () => {
     return (
         <SafeAreaView style={{ paddingTop: StatusBar.currentHeight || 0 }} className="flex h-full bg-black p-5">
             <ScrollView>
-            <View className="space-y-4">
-                {/* Navbar */}
-                <Navbar/>
+                <View className="space-y-4">
+                    {/* Navbar */}
+                    <Navbar setView={setView}/>
 
-                {/* Search Bar */}
-                <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+                    {view === 'search' ? (
+                        <View>
+                            {/* Search Bar */}
+                            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-                {/* Selected Category Components */}
-                <View className="flex flex-row flex-wrap space-x-2 mb-4">
-                    {selectedCategories.map((category) => (
-                        <SelectedCategory category={category} handleCategoryRemove={handleCategoryRemove}/>
-                    ))}
-                    {selectedCategories.length !== 4 && selectedCategories.length !== 0 && (
-                        <DropdownWithCategories selectedCategories={selectedCategories} handleCategoryRemove={handleCategoryRemove} setSelectedCategories={setSelectedCategories}/>
-                    )}
-                </View>
-
-                {/* Category Blocks or Affirmation Results */}
-                {selectedCategories.length === 0 && !searchTerm ? (
-                    <CategoryBlocks onSelectCategory={handleCategorySelect} />
-                ) : (
-                    <View className="space-y-4">
-                        {filteredAffirmations.map((affirmation) => (
-                            <View key={affirmation.id} className="bg-purple-200 p-4 rounded-lg">
-                                <Text className="text-black text-base">{affirmation.text}</Text>
+                            {/* Selected Category Components */}
+                            <View className="flex flex-row flex-wrap space-x-2 mb-4">
+                                {selectedCategories.map((category) => (
+                                    <SelectedCategory key={category} category={category} handleCategoryRemove={handleCategoryRemove} />
+                                ))}
+                                {selectedCategories.length !== 4 && selectedCategories.length !== 0 && (
+                                    <DropdownWithCategories
+                                        selectedCategories={selectedCategories}
+                                        handleCategoryRemove={handleCategoryRemove}
+                                        setSelectedCategories={setSelectedCategories}
+                                    />
+                                )}
                             </View>
-                        ))}
-                    </View>
-                )}
-            </View>
+
+                            {/* Category Blocks or Affirmation Results */}
+                            {selectedCategories.length === 0 && !searchTerm ? (
+                                <CategoryBlocks onSelectCategory={handleCategorySelect} />
+                            ) : (
+                                <View className="space-y-4">
+                                    {filteredAffirmations.map((affirmation) => (
+                                        <View key={affirmation.id} className="bg-purple-200 p-4 rounded-lg">
+                                            <Text className="text-black text-base">{affirmation.text}</Text>
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
+                        </View>
+                    ) : (
+                        <MyLibrary />
+                    )}
+
+                </View>
             </ScrollView>
         </SafeAreaView>
     );

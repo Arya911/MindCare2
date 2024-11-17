@@ -8,6 +8,7 @@ const LayoutRoot = () => {
       <Stack.Screen name="home" options={{ headerShown: false }} />
       <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="survey" options={{ headerShown: false }} />
+        <Stack.Screen name="settings" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
       // </UserProvider>

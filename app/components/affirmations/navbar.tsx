@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 const handleSearch = () => {};
 const handleMyLibrary = () => {};
 
-export default function Navbar() {
+export default function Navbar({setView}) {
     const [selectedTab, setSelectedTab] = useState('search');
 
     return (
@@ -12,7 +12,11 @@ export default function Navbar() {
             <View className="flex-row items-center">
                 {/* Search Tab */}
                 <TouchableOpacity
-                    onPress={() => setSelectedTab('search')}
+                    onPress={() => {
+                        setSelectedTab('search')
+                        setView('search')
+                    }
+                    }
                     className={`flex-1 p-2 border-r border-purple-200 ${
                         selectedTab === 'search' ? 'bg-purple-200' : 'bg-black'
                     }`}
@@ -26,7 +30,11 @@ export default function Navbar() {
 
                 {/* My Library Tab */}
                 <TouchableOpacity
-                    onPress={() => setSelectedTab('library')}
+                    onPress={() => {
+                        setSelectedTab('library')
+                        setView('library')
+                    }
+                    }
                     className={`flex-1 p-2 ${
                         selectedTab === 'library' ? 'bg-purple-200' : 'bg-black'
                     }`}

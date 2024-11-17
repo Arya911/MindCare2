@@ -4,6 +4,7 @@ import { postSignInDetailsTemp } from "@/services/authService";
 import {useContext, useState} from "react";
 import {useRouter} from "expo-router";
 import {UserContext} from "@/app/UserContext";
+import {getCollections} from "@/services/collectionService";
 
 const SignIn = () => {
     const router = useRouter();
@@ -15,24 +16,56 @@ const SignIn = () => {
     const handleSignIn = async () => {
 
         console.log("Sign in button pressed");
-         router.replace("/(tabs)/home")
-//         try{
-//             const response = await postSignInDetailsTemp({username, password});
-//             if(response.success){
-//                 console.log("Response.user: ", response.user);
-//                 updateUser(response.user);
-//                 console.log("After updateUser: ", user);
-//                 router.replace("/(tabs)/home"); // Redirect to home page after successful sign-in
-//             }
-//             else {
-//                 setErr(`${response.message}`);
-//                 console.error(err);
-//             }
-//         }
-//         catch (err){
-//             console.error("Sign in failed", err);
-//             setErr("Sign in failed due to unknown error.");
-//         }
+        try{
+            const response = await postSignInDetailsTemp({username, password});
+            if(response.success){
+                const userData = response.user;
+                console.log("Response.user: ", response.user);
+                // updateUser(response.user);
+
+                const collectionResponse = await getCollections(response.user.username);
+                if(!collectionResponse.success){
+                    setErr(`${response.message}`);
+                    console.error(err);
+                }
+                else{
+                    console.log("Collection Response: ", JSON.stringify(collectionResponse.data, null, 2));
+                    userData['affirmationCollections'] = collectionResponse.data;
+
+                    const map = {};
+
+                    collectionResponse.data.forEach((collection) => {
+                        // Check if affirmations exist and are an array
+                        console.log("Inside outer loop.");
+                        if (Array.isArray(collection.affirmations)) {
+                            console.log("Inside inner loop.");
+                            collection.affirmations.forEach((affirmation) => {
+                                if (!map[affirmation.id]) {
+                                    map[affirmation.id] = [];
+                                }
+                                map[affirmation.id].push(collection.collectionId);
+                            });
+                        } else {
+                            console.warn(`Collection ${collection.collectionId} has no affirmations or an invalid structure.`);
+                        }
+                    });
+
+                    console.log("Map: ", map);
+                    userData['affirmationToCollectionMap'] = map;
+                }
+                updateUser(userData);
+                console.log("After updateUser: ", user);
+                router.replace("/(tabs)/home"); // Redirect to home page after successful sign-in
+            }
+            else {
+                setErr(`${response.message}`);
+                console.error(err);
+            }
+        }
+        catch (err){
+            console.error("Sign in failed", err);
+            setErr("Sign in failed due to unknown error.");
+        }
 
     };
 
