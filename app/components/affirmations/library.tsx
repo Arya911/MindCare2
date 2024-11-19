@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, TouchableOpacity, Animated, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Alert, TextInput, Modal} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialIcons } from '@expo/vector-icons';
+import {FontAwesome6, MaterialIcons} from '@expo/vector-icons';
 import { UserContext } from '@/app/UserContext';
 import FlatList = Animated.FlatList;
 import AntDesign from "@expo/vector-icons/AntDesign";
 import {createCollection, deleteCollection, removeAffirmationFromCollection} from "@/services/collectionService"; // Adjust path as needed
-import { Modal, Input, Button } from '@ui-kitten/components';
+import DropdownWithActions from "@/app/components/affirmations/colDropdownAddDeleteRename";
+// import {Input, Modal} from "@ui-kitten/components";
+import CreateAffirmationModal from "@/app/components/affirmations/createAffirmationModal";
 
 function MyLibrary() {
     const gradientColors = [
@@ -20,6 +22,7 @@ function MyLibrary() {
     const [selectedCollection, setSelectedCollection] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [collectionName, setCollectionName] = useState('');
+    const [isAffirmationModalVisible, setIsAffirmationModalVisible] = useState(false);
 
     // @ts-ignore
     const handleCollectionClick = (collectionId) => {
@@ -124,11 +127,18 @@ function MyLibrary() {
                             {selectedCollection.collectionName}
                         </Text>
                         {/* Delete Button with Garbage Icon */}
-                        <TouchableOpacity onPress={() => handleDeleteCollection(selectedCollection.collectionId)} className="ml-2">
-                            <MaterialIcons name="delete" size={24} color="white" />
-                        </TouchableOpacity>
+                        <DropdownWithActions
+                            selectedCollection={selectedCollection}
+                            setIsModalVisible={setIsAffirmationModalVisible}
+                            setSelectedCollection={setSelectedCollection}
+                        />
                     </View>
 
+                    <CreateAffirmationModal
+                        isModalVisible={isAffirmationModalVisible}
+                        setIsModalVisible={setIsAffirmationModalVisible}
+                        collection={selectedCollection}
+                        />
                     {/* Affirmations List */}
                     <FlatList
                         data={selectedCollection.affirmations}
@@ -154,58 +164,100 @@ function MyLibrary() {
                         <Text className="text-white text-lg font-bold">Collections</Text>
                         {/* Button with Plus Icon */}
                         <TouchableOpacity
-                            onPress={() => setIsModalVisible(true)} // Your function to handle the add action
-                            className="bg-purple-200 rounded-lg p-4"
+                            className="p-4 rounded-lg bg-purple-200"
+                            onPress={()=>{setIsModalVisible(true)}}
                         >
-                            <MaterialIcons name="add" size={24} color="black" />
+                            <FontAwesome6 name="add" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
 
+                    {/*<CreateCollectionModal isModalVisible={isModalVisible}*/}
+                    {/*                       setIsModalVisible={setIsModalVisible}*/}
+                    {/*                       collectionName={collectionName}*/}
+                    {/*                       setCollectionName={setCollectionName}*/}
+                    {/*                       handleAddCollection={handleAddCollection}*/}
+                    {/*/>*/}
+                    {/*<Modal*/}
+                    {/*    visible={isModalVisible}*/}
+                    {/*    backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} // Slight transparency for the backdrop*/}
+                    {/*    onBackdropPress={() => setIsModalVisible(false)}*/}
+                    {/*>*/}
+                    {/*    <View className="p-5 border-2 border-purple-300 bg-black rounded-lg w-4/5 self-center">*/}
+                    {/*        <Text className="text-white text-lg font-bold mb-4 text-center">*/}
+                    {/*            Enter Name*/}
+                    {/*        </Text>*/}
+                    {/*        /!* Input with Custom Style *!/*/}
+                    {/*        <Input*/}
+                    {/*            value={collectionName}*/}
+                    {/*            onChangeText={setCollectionName}*/}
+                    {/*            placeholder="Name"*/}
+                    {/*            style={{*/}
+                    {/*                marginBottom: 20, // Space between input and buttons*/}
+                    {/*                color: '#D8B4FE', // Text color matches purple-300*/}
+                    {/*                backgroundColor: '#1F1F1F', // Darker background for input*/}
+                    {/*                borderWidth: 1,*/}
+                    {/*                borderColor: '#D8B4FE',*/}
+                    {/*                borderRadius: 8,*/}
+                    {/*                padding: 10,*/}
+                    {/*            }}*/}
+                    {/*            placeholderTextColor="#D8B4FE" // Placeholder in purple-300*/}
+                    {/*        />*/}
+                    {/*        /!* Buttons in a Single Row *!/*/}
+                    {/*        <View className="flex-row justify-between">*/}
+                    {/*            <TouchableOpacity*/}
+                    {/*                onPress={handleAddCollection}*/}
+                    {/*                className="bg-purple-200 rounded-full py-2 px-4"*/}
+                    {/*            >*/}
+                    {/*                <Text className="text-black font-bold">Add</Text>*/}
+                    {/*            </TouchableOpacity>*/}
+                    {/*            <TouchableOpacity*/}
+                    {/*                onPress={() => setIsModalVisible(false)}*/}
+                    {/*                className="bg-purple-200 rounded-full py-2 px-4"*/}
+                    {/*            >*/}
+                    {/*                <Text className="text-black font-bold">Cancel</Text>*/}
+                    {/*            </TouchableOpacity>*/}
+                    {/*        </View>*/}
+                    {/*    </View>*/}
+                    {/*</Modal>*/}
                     <Modal
                         visible={isModalVisible}
-                        backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} // Slight transparency for the backdrop
-                        onBackdropPress={() => setIsModalVisible(false)}
+                        transparent
+                        animationType="fade"
+                        onRequestClose={() => setIsModalVisible(false)}
                     >
-                        <View className="p-10 border-2 border-purple-300 bg-black rounded-lg w-4/5 self-center">
-                            <Text className="text-white text-lg font-bold mb-4 text-center">
-                                Enter Name
-                            </Text>
-                            {/* Input with Custom Style */}
-                            <Input
-                                value={collectionName}
-                                onChangeText={setCollectionName}
-                                placeholder="Name"
-                                style={{
-                                    marginBottom: 20, // Space between input and buttons
-                                    color: '#D8B4FE', // Text color matches purple-300
-                                    backgroundColor: '#1F1F1F', // Darker background for input
-                                    borderWidth: 1,
-                                    borderColor: '#D8B4FE',
-                                    borderRadius: 8,
-                                    padding: 10,
-                                }}
-                                placeholderTextColor="#D8B4FE" // Placeholder in purple-300
-                            />
-                            {/* Buttons in a Single Row */}
-                            <View className="flex-row justify-between">
-                                <TouchableOpacity
-                                    onPress={handleAddCollection}
-                                    className="bg-purple-200 rounded-full py-2 px-4"
-                                >
-                                    <Text className="text-black font-bold">Add</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => setIsModalVisible(false)}
-                                    className="bg-purple-200 rounded-full py-2 px-4"
-                                >
-                                    <Text className="text-black font-bold">Cancel</Text>
-                                </TouchableOpacity>
+                        <View className="flex-1 justify-center items-center bg-black/50">
+                            <View className="bg-black border-2 border-purple-300 rounded-lg p-6 w-4/5">
+                                <Text className="text-white text-lg font-bold mb-4 text-center">
+                                    Enter Name
+                                </Text>
+
+                                {/* Input Field */}
+                                <TextInput
+                                    value={collectionName}
+                                    onChangeText={setCollectionName}
+                                    placeholder="Enter name"
+                                    placeholderTextColor="white"
+                                    className="w-full text-white border-solid border-b-2 border-purple-200 rounded-lg p-4 text-base mb-6 h-12"
+                                />
+
+                                {/* Buttons */}
+                                <View className="flex-row justify-between">
+                                    <TouchableOpacity
+                                        onPress={handleAddCollection}
+                                        className="bg-purple-200 rounded-full py-2 px-6"
+                                    >
+                                        <Text className="text-black font-bold">Add</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => setIsModalVisible(false)}
+                                        className="border-solid border-2 border-purple-200 rounded-full py-2 px-6"
+                                    >
+                                        <Text className="text-purple-300 font-bold">Cancel</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     </Modal>
-
-
-
 
                     {user.affirmationCollections.map((collection, index) => (
                         <LinearGradient

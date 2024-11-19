@@ -64,24 +64,24 @@ const SignUp = () => {
                 {step === 1 && (
                     <>
                      <TextInput
-                         className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                         className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                          placeholder="Full Name"
-                         placeholderTextColor="gray"
+                         placeholderTextColor="white"
                          value={formData.name}
                          onChangeText={(text) => handleTextChange('name', text)}
                      />
 
                         <TextInput
-                            className=" mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Username"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             value={formData.username}
                             onChangeText={(text) => handleTextChange('username', text)}
                         />
                         <TextInput
-                            className=" mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Password"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             secureTextEntry
                             value={formData.password}
                             onChangeText={(text) => handleTextChange('password', text)}
@@ -92,24 +92,24 @@ const SignUp = () => {
                 {step === 2 && (
                     <>
                         <TextInput
-                            className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Gmail"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             keyboardType="email-address"
                             value={formData.email}
                             onChangeText={(text) => handleTextChange('email', text)}
                         />
                         <TextInput
-                            className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Gender"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             value={formData.gender}
                             onChangeText={(text) => handleTextChange('gender', text)}
                         />
                         <TextInput
-                            className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Blood Group"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             value={formData.bloodgroup}
                             onChangeText={(text) => handleTextChange('bloodgroup', text)}
                         />
@@ -119,16 +119,16 @@ const SignUp = () => {
                 {step === 3 && (
                     <>
                         <TextInput
-                            className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Birthdate"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             value={formData.birthdate}
                             onChangeText={(text) => handleTextChange('birthdate', text)}
                         />
                         <TextInput
-                            className="mb-4 bg-gray-800 text-white p-4 rounded-md placeholder-gray-400"
+                            className="mb-4 border-solid border-b-2 border-purple-300 text-white p-4 rounded-md"
                             placeholder="Data"
-                            placeholderTextColor="gray"
+                            placeholderTextColor="white"
                             value={formData.data}
                             onChangeText={(text) => handleTextChange('data', text)}
                         />
@@ -140,21 +140,21 @@ const SignUp = () => {
             <View className="w-full flex-row justify-between mt-10">
                 {step > 1 && (
                     <TouchableOpacity onPress={handlePrevious}>
-                        <Text className="text-purple-400 font-bold">Previous</Text>
+                        <Text className="text-purple-300 font-bold">Previous</Text>
                     </TouchableOpacity>
                 )}
                 {step < 3 ? (
                     <TouchableOpacity onPress={handleNext}>
-                        <Text className="text-purple-400 font-bold">Next</Text>
+                        <Text className="text-purple-300 font-bold">Next</Text>
                     </TouchableOpacity>
                 ) : (
 
 
                     <TouchableOpacity
-                        className="bg-purple-600 py-3 px-7 rounded-full shadow-md shadow-purple-700"
+                        className="bg-purple-200 py-3 px-7 rounded-full"
                         onPress={handleSignUp}
                     >
-                        <Text className="text-white text-lg font-bold ">Sign Up</Text>
+                        <Text className="text-black text-lg font-bold ">Sign Up</Text>
                     </TouchableOpacity>
                 )}
             </View>
