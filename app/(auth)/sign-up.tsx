@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { UserContext } from "../UserContext";
 import { postSignUpDetails } from "@/services/authService";
 import { useContext, useState } from "react";
-import { Ionicons } from "@expo/vector-icons"; // Import icons from Expo Vector Icons
+import { Ionicons } from "@expo/vector-icons";
 
 const SignUp = () => {
   const router = useRouter();
@@ -21,6 +21,7 @@ const SignUp = () => {
   const [err, setErr] = useState("");
   const { updateUser } = useContext(UserContext);
   const [step, setStep] = useState(1);
+  const [isConsentGiven, setIsConsentGiven] = useState(false);
 
   const handleTextChange = (field, value) => {
     setFormData((prevState) => ({
@@ -33,6 +34,7 @@ const SignUp = () => {
   const handlePrevious = () => setStep((prevStep) => prevStep - 1);
 
   const handleSignUp = async () => {
+    if (!isConsentGiven) return;
     try {
       const response = await postSignUpDetails(formData);
       if (response.success) {
@@ -136,6 +138,26 @@ const SignUp = () => {
         )}
       </View>
 
+      {/* Custom Consent Checkbox - Shown Only on the Last Step */}
+      {step === 3 && (
+        <View className="flex-row items-center justify-start w-full mt-8">
+          <TouchableOpacity
+            onPress={() => setIsConsentGiven(!isConsentGiven)}
+            style={{
+              width: 20,
+              height: 20,
+              borderWidth: 2,
+              borderColor: "#A78BFA",
+              backgroundColor: isConsentGiven ? "#A78BFA" : "transparent",
+              marginRight: 10,
+            }}
+          />
+          <Text className="text-purple-300 font-semibold">
+            I consent to the use of my data for this service.
+          </Text>
+        </View>
+      )}
+
       {/* Navigation Buttons */}
       <View className="w-full flex-row justify-between mt-10">
         {step > 1 && (
@@ -151,7 +173,10 @@ const SignUp = () => {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            className="bg-purple-600 py-3 px-7 rounded-full shadow-md shadow-purple-700"
+            disabled={!isConsentGiven} // Disable button if consent is not given
+            className={`py-3 px-7 rounded-full shadow-md shadow-purple-700 ${
+              isConsentGiven ? "bg-purple-600" : "bg-gray-500"
+            }`}
             onPress={handleSignUp}
           >
             <Text className="text-white text-lg font-bold">Sign Up</Text>
