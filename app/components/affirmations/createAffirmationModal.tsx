@@ -36,7 +36,7 @@ const CreateAffirmationModal = ({isModalVisible, setIsModalVisible, collection})
             onRequestClose={() => setIsModalVisible(false)}
         >
             <View className="flex-1 justify-center items-center bg-black/50">
-                <View className="bg-black border-2 border-purple-300 rounded-lg p-6 w-4/5">
+                <View className="bg-black border-2 border-purple-200 rounded-lg p-6 w-4/5">
                     <Text className="text-white text-lg font-bold mb-4 text-center">
                         Enter Text
                     </Text>
@@ -54,7 +54,7 @@ const CreateAffirmationModal = ({isModalVisible, setIsModalVisible, collection})
                     <View className="flex-row justify-between">
                         <TouchableOpacity
                             onPress={handleAddAffirmation}
-                            className="bg-purple-300 rounded-full py-2 px-6"
+                            className="bg-purple-200 rounded-full py-2 px-6"
                         >
                             <Text className="text-black font-bold">Add</Text>
                         </TouchableOpacity>
@@ -62,7 +62,7 @@ const CreateAffirmationModal = ({isModalVisible, setIsModalVisible, collection})
                             onPress={() => setIsModalVisible(false)}
                             className="border-solid border-2 border-purple-200 rounded-full py-2 px-6"
                         >
-                            <Text className="text-purple-300 font-bold">Cancel</Text>
+                            <Text className="text-purple-200 font-bold">Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

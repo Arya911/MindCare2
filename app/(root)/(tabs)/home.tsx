@@ -11,9 +11,9 @@ const Home = () => {
         router.push("/(tabs)/survey");
     };
 
-      const handleSettingsRedirect = () => {
-            router.push("/(tabs)/settings");
-        };
+  const handleSettingsRedirect = () => {
+        router.push("/(tabs)/settings");
+    };
 
 
 
@@ -25,6 +25,10 @@ const Home = () => {
     const handleAffirmationsRedirect = () => {
         router.push("/(tabs)/affirmations");
     };
+
+    const handleProfessionalsRedirect = () => {
+        router.push("/(tabs)/findProfessionals")
+    }
 
     // const [fontsLoaded] = useFonts({
     //     'FontAwesome5': FontAwesome5.font, // Load FontAwesome5 fonts
@@ -66,7 +70,7 @@ const Home = () => {
                             className="flex-1 bg-purple-200 p-5 rounded-lg items-center"
                         >
                             <FontAwesome5 name="clipboard-list" size={70} color="black" className="mb-2" />
-                            <Text className="mt-4 text-black text-sm text-center">Survey</Text>
+                            <Text className="mt-4 text-black text-sm text-center">Health Survey</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -82,10 +86,14 @@ const Home = () => {
                         </TouchableOpacity>
 
                         {/* Find Professionals Section */}
-                        <View className="flex-1 bg-purple-200 p-5 rounded-lg items-center">
+                        <TouchableOpacity
+                            onPress={handleProfessionalsRedirect}
+                            className="flex-1 bg-purple-200 p-5 rounded-lg mr-2 items-center"
+                        >
                             <FontAwesome5 name="user-md" size={70} color="black" className="mb-2" />
                             <Text className="mt-4 text-black text-sm text-center">Find Professionals</Text>
-                        </View>
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </ScrollView>

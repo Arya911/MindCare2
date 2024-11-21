@@ -13,7 +13,7 @@ import CreateAffirmationModal from "@/app/components/affirmations/createAffirmat
 function MyLibrary() {
     const gradientColors = [
         ['#bfdbfe', '#dbeafe'],
-        ['#f9a8d4', '#fce7f3'],
+        ['#fda4af', '#ffe4e6'],
         ['#fde047', '#fef9c3'],
     ];
 

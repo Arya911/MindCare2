@@ -28,7 +28,12 @@ const ProfileScreen = () => {
         if (isEditing) {
             // Save the profile and make API call when toggling from edit to view mode
             updateUser(userDetails);
-            const response = await postProfileUpdates(userDetails);
+            const keysToRemove = ['affirmationCollections', 'affirmationToCollectionsMap'];
+            const filtered = Object.fromEntries(
+                Object.entries(userDetails).filter(([key]) => !keysToRemove.includes(key))
+            );
+
+            const response = await postProfileUpdates(filtered);
             if(response.success) Alert.alert('Profile saved!');
             else Alert.alert(response.message);
         }
