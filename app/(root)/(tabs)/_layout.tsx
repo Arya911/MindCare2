@@ -11,6 +11,7 @@ const LayoutTabs = () => {
         <Stack.Screen name="affirmations" options={{ headerShown: false }} />
         <Stack.Screen name="findProfessionals" options={{ headerShown: false }} />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
+        <Stack.Screen name="recommendations" options={{ headerShown: false }} />
     </Stack>
       // </UserProvider>
   );

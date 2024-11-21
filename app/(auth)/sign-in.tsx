@@ -224,7 +224,7 @@ const SignIn = () => {
             <View className="w-full space-y-4">
                 {/* Username Input */}
                 <TextInput
-                    className="border-solid border-b-2 border-purple-200 p-4 rounded-md text-white"
+                    className="border-solid border-b-2 border-x-1 border-purple-200 p-4 rounded-md text-white"
                     placeholder="Username"
                     placeholderTextColor="white"
                     keyboardType="default"
@@ -234,7 +234,7 @@ const SignIn = () => {
 
                 {/* Password Input */}
                 <TextInput
-                    className="border-solid border-b-2 border-purple-200 p-4 rounded-md text-white"
+                    className="border-solid border-b-2 border-x-1 border-purple-200 p-4 rounded-md text-white"
                     placeholder="Password"
                     placeholderTextColor="white"
                     secureTextEntry
