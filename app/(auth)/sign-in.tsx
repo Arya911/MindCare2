@@ -152,7 +152,7 @@ const SignIn = () => {
 
     const handleSignIn = async () => {
         console.log("Sign in button pressed");
-        try{
+        /*try{
             const response = await postSignInDetailsTemp({username, password});
             if(response.success){
                 const userData = response.user;
@@ -201,7 +201,8 @@ const SignIn = () => {
         catch (err){
             console.error("Sign in failed", err);
             setErr("Sign in failed due to unknown error.");
-        }
+        }*/
+        router.replace("/(tabs)/home");
     };
 
     const handleSignUpRedirect = () => {
